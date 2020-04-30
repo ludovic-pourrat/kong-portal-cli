@@ -52,11 +52,11 @@ export default class RestClient {
   }
 
   public async getFiles<T>(options?: AxiosRequestConfig): Promise<FileResourceJSON[]> {
-    return this.handleResponse(await this.client.get(`${this.workspaceName}/files`, options))
+    return this.handleResponse(await this.client.get(`default/files/portals/${this.workspaceName}`, options))
   }
 
   public async getAllFiles<T>(): Promise<FileResourceJSON[]> {
-    let res = await this.client.get(`${this.workspaceName}/files`)
+    let res = await this.client.get(`default/files/portals/${this.workspaceName}`)
     let files: FileResourceJSON[] = this.handleResponse(res)
     while (res.data.next) {
       // url already has workspace
@@ -68,11 +68,11 @@ export default class RestClient {
   }
 
   public async saveFile<Output>(file: FileResource, options: AxiosRequestConfig = {}): Promise<void> {
-    await this.client.put(`${this.workspaceName}/files/${file.path}`, file, options)
+    await this.client.put(`default/files/portals/${this.workspaceName}`, file, options)
   }
 
   public async deleteFile<T>(file: FileResource, options: AxiosRequestConfig = {}): Promise<void> {
-    await this.client.delete(`${this.workspaceName}/files/${file.path}`, options)
+    await this.client.delete(`$default/files/${file.path}`, options)
   }
 
   public async enablePortal(options: AxiosRequestConfig = {}): Promise<void> {

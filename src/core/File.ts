@@ -26,7 +26,7 @@ export default class File implements FileInterface {
     this.encoding = options.encoding || 'utf8'
     this.workspacePath = toUnix(workspacePath)
     this.resource = new FileResource({
-      path: this.location.replace(`${this.workspacePath}/`, ''),
+      path: `portals/${this.location}`,
       contents: '',
     })
   }
