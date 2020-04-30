@@ -14,10 +14,12 @@ export default class File implements FileInterface {
   public workspacePath: string
   public encoding: string
   public resource: FileResource
+  public portalName: string
 
   public constructor(
     location: string,
     workspacePath: string,
+    portalName: string,
     options = {
       encoding: 'utf8',
     },
@@ -25,8 +27,10 @@ export default class File implements FileInterface {
     this.location = toUnix(location)
     this.encoding = options.encoding || 'utf8'
     this.workspacePath = toUnix(workspacePath)
+    this.portalName = portalName
+    let oldPath = this.location.replace(`${this.workspacePath}/`, '')
     this.resource = new FileResource({
-      path: `portals/${this.location}`,
+      path: `portals/${this.portalName}/${oldPath}`,
       contents: '',
     })
   }

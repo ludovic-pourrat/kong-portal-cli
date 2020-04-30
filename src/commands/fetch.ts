@@ -53,7 +53,7 @@ export default async (args): Promise<void> => {
   if (response) {
     for (let resource of response) {
       let path: string = join(workspace.path, resource.path)
-      let file: File = new File(path, workspace.path)
+      let file: File = new File(path, workspace.path, workspace.name)
       if (await file.exists()) {
         if (await shouldRewriteFile(resource, file, args.keepEncode)) {
           file.write(resource.contents)

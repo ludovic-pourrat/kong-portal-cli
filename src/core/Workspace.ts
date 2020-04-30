@@ -53,7 +53,7 @@ export default class Workspace {
     if (files) {
       this.files = files.map(
         (file: any): File => {
-          return new File(file.fullname, this.path)
+          return new File(file.fullname, this.path, this.name)
         },
       )
     }
@@ -93,7 +93,7 @@ export default class Workspace {
   }
 
   public async getTheme(name: string): Promise<WorkspaceTheme> {
-    return await WorkspaceTheme.init(this.path, name)
+    return await WorkspaceTheme.init(this.path, name, this.name)
   }
 
   public async getCurrentTheme(): Promise<WorkspaceTheme> {

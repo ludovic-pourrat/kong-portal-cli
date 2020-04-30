@@ -68,11 +68,11 @@ export default class RestClient {
   }
 
   public async saveFile<Output>(file: FileResource, options: AxiosRequestConfig = {}): Promise<void> {
-    await this.client.put(`default/files/portals/${this.workspaceName}`, file, options)
+    await this.client.put(`files/${file.path}`, file, options)
   }
 
   public async deleteFile<T>(file: FileResource, options: AxiosRequestConfig = {}): Promise<void> {
-    await this.client.delete(`$default/files/${file.path}`, options)
+    await this.client.delete(`files/${file.path}`, options)
   }
 
   public async enablePortal(options: AxiosRequestConfig = {}): Promise<void> {

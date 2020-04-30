@@ -9,6 +9,7 @@ export default class WorkspaceTheme {
   public name: string
   public path: string
   public location: string
+  public portalName: string
 
   public config: Config
 
@@ -20,10 +21,11 @@ export default class WorkspaceTheme {
   public layouts: [] | null
   public partials: [] | null
 
-  public constructor(location: string, name: string) {
+  public constructor(location: string, name: string, portalName: string) {
     this.name = name
     this.location = location
     this.path = WorkspaceTheme.getDirectoryPath(location, name)
+    this.portalName = portalName
 
     this.config = new Config(this.path, 'theme.conf.yaml')
 
@@ -54,7 +56,7 @@ export default class WorkspaceTheme {
   private mapFilesToContent(files): [] {
     return files.map(
       (file: any): File => {
-        return new File(file.fullname, this.location)
+        return new File(file.fullname, this.location, this.portalName)
       },
     )
   }
@@ -79,8 +81,8 @@ export default class WorkspaceTheme {
     console.log(`  `, `Partials:`, partialsLength)
   }
 
-  public static async init(location: string, name: string): Promise<WorkspaceTheme> {
-    const theme = new WorkspaceTheme(location, name)
+  public static async init(location: string, name: string, portalName: string): Promise<WorkspaceTheme> {
+    const theme = new WorkspaceTheme(location, name, portalName)
     await theme.config.load()
     await theme.scanAssets()
     await theme.scanLayouts()
